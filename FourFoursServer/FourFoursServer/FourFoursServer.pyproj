@@ -22,7 +22,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ServerStatus.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TCPParser.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FourFoursServer.py" />
+    <Compile Include="ThreadStack.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

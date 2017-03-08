@@ -3,30 +3,45 @@ import socket
 import threading 
 from threading import Thread
 import sqlite3
+from TCPParser import TCPParser
+from ServerStatus import ServerStatus
+from ThreadStack import ThreadStack
 
-def parse_tcp_input(conn, addr):
-  print("Doing the good stuff")
-  with conn:
-      print('Connected by', addr)
-      data = conn.recv(1024)
-      
-      if not data: return
+if __name__ == '__main__':  
+  
+  connection = sqlite3.connect("company.db")
+  cursor = connection.cursor()
 
-      conn.sendall(b'Server answer is very generic')
+  # delete 
+  #cursor.execute("""DROP TABLE employee;""")
 
-if __name__ == '__main__':
+  sql_command = """
+  CREATE TABLE IF NOT EXISTS employeeTest ( 
+  staff_number INTEGER PRIMARY KEY, 
+  fname VARCHAR(20), 
+  lname VARCHAR(30), 
+  gender CHAR(1), 
+  joining DATE,
+  birth_date DATE);"""
+
+  cursor.execute(sql_command)
+  cursor.close()
+  connection.close()
+
+  server_status = ServerStatus()
+  thread_stack = ThreadStack(15, server_status)
 
   HOST = ''                 # Symbolic name meaning all available interfaces
   PORT = 50175              # Arbitrary non-privileged port
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
-
     s.listen(1)
     print("Listening on port ", PORT)
-    while True:
+    while server_status.is_server_active():
+      print ("Waiting for connection ... \n")
       conn, addr = s.accept()
-      t = threading.Thread(target=parse_tcp_input, args=(conn, addr, ))
-      t.start()
+      t = thread_stack.pop()
+      t.parse_tcp(conn, addr)
 
     
 
