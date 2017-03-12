@@ -9,24 +9,22 @@ from ThreadStack import ThreadStack
 
 if __name__ == '__main__':  
   
-  connection = sqlite3.connect("company.db")
+  connection = sqlite3.connect("game-results.db")
   cursor = connection.cursor()
 
-  # delete 
-  #cursor.execute("""DROP TABLE employee;""")
-
   sql_command = """
-  CREATE TABLE IF NOT EXISTS employeeTest ( 
-  staff_number INTEGER PRIMARY KEY, 
-  fname VARCHAR(20), 
-  lname VARCHAR(30), 
-  gender CHAR(1), 
-  joining DATE,
-  birth_date DATE);"""
+  CREATE TABLE IF NOT EXISTS results ( 
+  player_id INTEGER KEY, 
+  username VARCHAR(255), 
+  game_mode VARCHAR(1), 
+  target INTEGER, 
+  solution VARCHAR(255));"""
 
   cursor.execute(sql_command)
   cursor.close()
   connection.close()
+
+
 
   server_status = ServerStatus()
   thread_stack = ThreadStack(15, server_status)

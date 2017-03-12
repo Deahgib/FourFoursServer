@@ -5,9 +5,9 @@ import time
 HOST = 'localhost'    # The remote host
 PORT = 50175              # The same port as used by the server
 
-for _ in range(10):
+for _ in range(1):
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 		
 		s.connect((HOST, PORT))
-		s.sendall(b'Hello, world')
+		s.sendall(b'Boom')
 		time.sleep(1)
