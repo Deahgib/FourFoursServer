@@ -14,12 +14,11 @@ if __name__ == '__main__':
 
   sql_command = """
   CREATE TABLE IF NOT EXISTS results ( 
-  player_id INTEGER KEY, 
-  username VARCHAR(255), 
+  solution_id INTEGER AUTO_INCREMENT PRIMARY KEY,
   game_mode VARCHAR(1), 
   target INTEGER, 
-  solution VARCHAR(255));"""
-
+  solution VARCHAR(255)
+  );"""
   cursor.execute(sql_command)
   cursor.close()
   connection.close()
@@ -40,6 +39,3 @@ if __name__ == '__main__':
       conn, addr = s.accept()
       t = thread_stack.pop()
       t.parse_tcp(conn, addr)
-
-    
-
