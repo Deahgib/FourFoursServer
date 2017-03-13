@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
   sql_command = """
   CREATE TABLE IF NOT EXISTS results ( 
-  solution_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  solution_id INTEGER PRIMARY KEY AUTOINCREMENT,
   game_mode VARCHAR(1), 
   target INTEGER, 
   solution VARCHAR(255)

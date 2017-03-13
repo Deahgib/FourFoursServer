@@ -26,14 +26,12 @@ class TCPParser(Thread):
       str = self.getName() + " working"
       print(str)
       with self.tcp_connection:
-          #print('Connected by', self.port_address)
+          print('Connected by', self.port_address)
           data = self.tcp_connection.recv(1024)
-      
-          #data = bytes.fromhex('01 f2 83 e1 a3 44 da b7 af f4 d6 69 ca c9 01 00       00 00 00 01      03     42 6f 62     63     00 00 00 02      0b      28 34 2f 34 29 2b 28 34 2f 34 29')
-
 
           if not data: return
 
+          print(data)
           self.parse_packet(data)
 
       self.threads.push(self)
@@ -50,7 +48,7 @@ class TCPParser(Thread):
     for i in range(len(greeting)):
       if(greeting[i] != data[i]):
         return False
-    #print ("Greeting accepted")
+    print ("Greeting accepted")
 
     ## Read player ID (int)
     #index = len(greeting)
@@ -70,20 +68,21 @@ class TCPParser(Thread):
     # Get game mode (char)
     index += len(greeting)
     gameMode = data[index:index+1].decode("utf-8")
+    index += 1
     #print (gameMode)
 
     # Solution for int (int)
-    index += 1
     target = data[index: index+4]
     target = int.from_bytes(target, byteorder='big', signed = False)
+    index += 4
     #print(target)
 
     # Read solution length (char)
-    index += 4
     solutionLength = int.from_bytes(data[index:index+1], byteorder='big', signed = False)
+    index += 1
+    #print (solutionLength)
 
     # Read solution (str)
-    index += 1
     solutionBytes = data[index:index+solutionLength]
     solution = solutionBytes.decode("utf-8")
     #print (solution)
