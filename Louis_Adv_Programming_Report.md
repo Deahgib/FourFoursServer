@@ -7,7 +7,9 @@ Advanced Programming - Goldsmiths
 *Louis Bennette*
  
 Webpage: http://bennette.co.uk/FourFours/Index.php
+
 Github Server: https://github.com/Deahgib/FourFoursServer 
+
 Github App: https://github.com/Deahgib/FourFours 
 
 The FourFours game is a personal project of mine. It’s an app of a mathematical puzzle game. The game requires the user to find a solution for a given integer using exactly four 4s. The player can use as many parentheses and operators as they need to find a solution. They can also concatenate the digits of 4 together as long as only 4 digits are used. 
